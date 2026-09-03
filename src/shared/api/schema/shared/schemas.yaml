@@ -10,7 +10,8 @@ components:
         lovesHumidity: { type: boolean }
     Ghost:
       type: object
-      required: [id, name, anxiety, preferredTemperature, deadline, requirements]
+      required:
+        [id, name, anxiety, preferredTemperature, deadline, requirements]
       properties:
         id: { type: string, format: uuid }
         name: { type: string }
@@ -22,11 +23,29 @@ components:
         note: { type: string, nullable: true }
     Place:
       type: object
-      required: [id, name, type, capacity, temperature, lighting, noise, humidity, hasHumans, hasAttic, hasMirrors, restrictions]
+      required:
+        [
+          id,
+          name,
+          type,
+          capacity,
+          temperature,
+          lighting,
+          noise,
+          humidity,
+          hasHumans,
+          hasAttic,
+          hasMirrors,
+          restrictions,
+        ]
       properties:
         id: { type: string, format: uuid }
         name: { type: string }
-        type: { type: string, enum: [castle, lighthouse, library, theater, basement] }
+        type:
+          {
+            type: string,
+            enum: [castle, lighthouse, library, theater, basement],
+          }
         capacity: { type: integer, minimum: 1 }
         temperature: { type: integer }
         lighting: { type: string, enum: [low, medium, high] }
@@ -66,7 +85,14 @@ components:
           items: { $ref: '#/components/schemas/RelocationIssue' }
     RelocationReport:
       type: object
-      required: [assignedCount, unassignedCount, problematicGhosts, overloadedPlaces, manualWarnings]
+      required:
+        [
+          assignedCount,
+          unassignedCount,
+          problematicGhosts,
+          overloadedPlaces,
+          manualWarnings,
+        ]
       properties:
         assignedCount: { type: integer, minimum: 0 }
         unassignedCount: { type: integer, minimum: 0 }

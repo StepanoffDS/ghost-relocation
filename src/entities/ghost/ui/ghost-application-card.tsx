@@ -4,7 +4,10 @@ import type { ApiSchemas } from '@/shared/api/schema';
 import { Badge } from '@/shared/ui/kit/badge';
 import { Card, CardContent, CardHeader } from '@/shared/ui/kit/card';
 
-import { formatGhostDeadline, getGhostRequirements } from '../model/ghost-application-details';
+import {
+  formatGhostDeadline,
+  getGhostRequirements,
+} from '../model/ghost-application-details';
 
 type GhostApplicationCardProps = { ghost: ApiSchemas['Ghost'] };
 

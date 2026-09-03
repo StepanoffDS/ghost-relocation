@@ -1,5 +1,5 @@
-import { createOpenApiHttp } from 'openapi-msw'
+import { createOpenApiHttp } from 'openapi-msw';
 
-import type { ApiPaths } from '../schema'
+import type { ApiPaths } from '../schema';
 
-export const http = createOpenApiHttp<ApiPaths>({ baseUrl: '/api' })
+export const http = createOpenApiHttp<ApiPaths>({ baseUrl: '/api' });

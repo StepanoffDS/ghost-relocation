@@ -1,1 +1,1 @@
-export { RelocationBoard } from './ui/relocation-board'
+export { RelocationBoard } from './ui/relocation-board';

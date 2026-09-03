@@ -20,25 +20,30 @@ export function AppShell() {
             <p className='mb-2 flex items-center gap-2 text-xs font-semibold tracking-[0.18em] text-primary uppercase'>
               <Ghost className='size-4' aria-hidden='true' /> Бюро переселения
             </p>
-            <h1 className='text-3xl font-semibold tracking-tight text-foreground sm:text-4xl'>Привидения без прописки</h1>
+            <h1 className='text-3xl font-semibold tracking-tight text-foreground sm:text-4xl'>
+              Привидения без прописки
+            </h1>
           </div>
           <nav aria-label='Основная навигация'>
             <ul className='flex flex-wrap gap-1'>
-            {links.map(({ to, label, end }) => (
-              <li key={to}>
-                <NavLink
-                  to={to}
-                  end={end}
-                  className={({ isActive }) => cn(
-                    'rounded-full px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
-                    isActive && 'bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground',
-                  )}
-                >
-                  {label}
-                </NavLink>
-              </li>
-            ))}
-          </ul>
+              {links.map(({ to, label, end }) => (
+                <li key={to}>
+                  <NavLink
+                    to={to}
+                    end={end}
+                    className={({ isActive }) =>
+                      cn(
+                        'rounded-full px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
+                        isActive &&
+                          'bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground',
+                      )
+                    }
+                  >
+                    {label}
+                  </NavLink>
+                </li>
+              ))}
+            </ul>
           </nav>
         </header>
         <Outlet />

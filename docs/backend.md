@@ -90,11 +90,26 @@ Ghost:
 
 ```yaml
 Place:
-  required: [id, name, type, capacity, temperature, lighting, noise, humidity, hasHumans, hasAttic, hasMirrors, restrictions]
+  required:
+    [
+      id,
+      name,
+      type,
+      capacity,
+      temperature,
+      lighting,
+      noise,
+      humidity,
+      hasHumans,
+      hasAttic,
+      hasMirrors,
+      restrictions,
+    ]
   properties:
     id: { type: string, format: uuid }
     name: { type: string }
-    type: { type: string, enum: [castle, lighthouse, library, theater, basement] }
+    type:
+      { type: string, enum: [castle, lighthouse, library, theater, basement] }
     capacity: { type: integer, minimum: 1 }
     temperature: { type: integer }
     lighting: { type: string, enum: [low, medium, high] }
@@ -131,15 +146,15 @@ Relocation:
 
 ## 6. Endpoints
 
-| Метод | Путь | Поведение |
-| --- | --- | --- |
-| `GET` | `/api/ghosts` | Возвращает все заявки текущего demo-набора. |
-| `GET` | `/api/places` | Возвращает места; `occupied` и `isOverloaded` добавляются read-моделью ответа. |
-| `GET` | `/api/relocations` | Возвращает текущее решение по каждой заявке. |
+| Метод  | Путь                           | Поведение                                                                        |
+| ------ | ------------------------------ | -------------------------------------------------------------------------------- |
+| `GET`  | `/api/ghosts`                  | Возвращает все заявки текущего demo-набора.                                      |
+| `GET`  | `/api/places`                  | Возвращает места; `occupied` и `isOverloaded` добавляются read-моделью ответа.   |
+| `GET`  | `/api/relocations`             | Возвращает текущее решение по каждой заявке.                                     |
 | `POST` | `/api/relocations/auto-assign` | Выполняет автораспределение, сохраняет результат и возвращает список назначений. |
-| `PUT` | `/api/relocations/{ghostId}` | Выполняет ручное назначение. Body: `placeId`, `force`. |
-| `GET` | `/api/reports/relocation` | Возвращает итоговую агрегированную сводку. |
-| `POST` | `/api/demo/reset` | Заменяет in-memory state выбранным fixture и возвращает его имя. |
+| `PUT`  | `/api/relocations/{ghostId}`   | Выполняет ручное назначение. Body: `placeId`, `force`.                           |
+| `GET`  | `/api/reports/relocation`      | Возвращает итоговую агрегированную сводку.                                       |
+| `POST` | `/api/demo/reset`              | Заменяет in-memory state выбранным fixture и возвращает его имя.                 |
 
 `PUT /relocations/{ghostId}`:
 

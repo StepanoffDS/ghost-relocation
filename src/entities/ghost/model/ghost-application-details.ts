@@ -1,8 +1,6 @@
 import type { ApiSchemas } from '@/shared/api/schema';
 
-export const getGhostRequirements = (
-  ghost: ApiSchemas['Ghost'],
-): string[] => {
+export const getGhostRequirements = (ghost: ApiSchemas['Ghost']): string[] => {
   const { requirements, note } = ghost;
 
   return [
