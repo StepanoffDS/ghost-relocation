@@ -1,0 +1,21 @@
+openapi: 3.0.3
+info:
+  title: Ghost Relocation API
+  version: 1.0.0
+servers:
+  - url: /api
+paths:
+  /ghosts:
+    $ref: ./endpoints/ghosts.yaml#/ghosts
+  /places:
+    $ref: ./endpoints/places.yaml#/places
+  /relocations:
+    $ref: ./endpoints/relocations.yaml#/relocations
+  /relocations/auto-assign:
+    $ref: ./endpoints/relocations.yaml#/autoAssign
+  /relocations/{ghostId}:
+    $ref: ./endpoints/relocations.yaml#/relocationByGhost
+  /reports/relocation:
+    $ref: ./endpoints/reports.yaml#/relocationReport
+  /demo/reset:
+    $ref: ./endpoints/demo.yaml#/reset

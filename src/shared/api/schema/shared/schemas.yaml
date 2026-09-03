@@ -1,0 +1,120 @@
+components:
+  schemas:
+    GhostRequirements:
+      type: object
+      required: [needsAttic, avoidsMirrors, noHumans, lovesHumidity]
+      properties:
+        needsAttic: { type: boolean }
+        avoidsMirrors: { type: boolean }
+        noHumans: { type: boolean }
+        lovesHumidity: { type: boolean }
+    Ghost:
+      type: object
+      required: [id, name, anxiety, preferredTemperature, deadline, requirements]
+      properties:
+        id: { type: string, format: uuid }
+        name: { type: string }
+        anxiety: { type: integer, minimum: 1, maximum: 5 }
+        preferredTemperature: { type: integer, minimum: -30, maximum: 50 }
+        deadline: { type: string, format: date }
+        requirements:
+          $ref: '#/components/schemas/GhostRequirements'
+        note: { type: string, nullable: true }
+    Place:
+      type: object
+      required: [id, name, type, capacity, temperature, lighting, noise, humidity, hasHumans, hasAttic, hasMirrors, restrictions]
+      properties:
+        id: { type: string, format: uuid }
+        name: { type: string }
+        type: { type: string, enum: [castle, lighthouse, library, theater, basement] }
+        capacity: { type: integer, minimum: 1 }
+        temperature: { type: integer }
+        lighting: { type: string, enum: [low, medium, high] }
+        noise: { type: string, enum: [low, medium, high] }
+        humidity: { type: string, enum: [low, medium, high] }
+        hasHumans: { type: boolean }
+        hasAttic: { type: boolean }
+        hasMirrors: { type: boolean }
+        restrictions:
+          type: array
+          items: { type: string }
+    PlaceWithOccupancy:
+      allOf:
+        - $ref: '#/components/schemas/Place'
+        - type: object
+          required: [occupied, isOverloaded]
+          properties:
+            occupied: { type: integer, minimum: 0 }
+            isOverloaded: { type: boolean }
+    RelocationIssue:
+      type: object
+      required: [code, message, severity]
+      properties:
+        code: { type: string }
+        message: { type: string }
+        severity: { type: string, enum: [blocker, warning] }
+    Relocation:
+      type: object
+      required: [ghostId, placeId, mode, score, issues]
+      properties:
+        ghostId: { type: string, format: uuid }
+        placeId: { type: string, format: uuid, nullable: true }
+        mode: { type: string, enum: [auto, manual, unassigned] }
+        score: { type: integer, minimum: 0, maximum: 100, nullable: true }
+        issues:
+          type: array
+          items: { $ref: '#/components/schemas/RelocationIssue' }
+    RelocationReport:
+      type: object
+      required: [assignedCount, unassignedCount, problematicGhosts, overloadedPlaces, manualWarnings]
+      properties:
+        assignedCount: { type: integer, minimum: 0 }
+        unassignedCount: { type: integer, minimum: 0 }
+        problematicGhosts:
+          type: array
+          items:
+            type: object
+            required: [ghostId, issues]
+            properties:
+              ghostId: { type: string, format: uuid }
+              issues:
+                type: array
+                items: { $ref: '#/components/schemas/RelocationIssue' }
+        overloadedPlaces:
+          type: array
+          items: { $ref: '#/components/schemas/PlaceWithOccupancy' }
+        manualWarnings:
+          type: array
+          items: { $ref: '#/components/schemas/Relocation' }
+    ErrorResponse:
+      type: object
+      required: [error]
+      properties:
+        error:
+          type: object
+          required: [code, message]
+          properties:
+            code: { type: string }
+            message: { type: string }
+            details:
+              type: object
+              additionalProperties: true
+    ManualRelocationRequest:
+      type: object
+      required: [placeId, force]
+      properties:
+        placeId: { type: string, format: uuid, nullable: true }
+        force: { type: boolean }
+    DemoFixture:
+      type: string
+      enum: [default, empty, impossible, full, manual-conflict]
+    DemoResetRequest:
+      type: object
+      required: [fixture]
+      properties:
+        fixture: { $ref: '#/components/schemas/DemoFixture' }
+    DemoResetResponse:
+      type: object
+      required: [fixture]
+      properties:
+        fixture: { $ref: '#/components/schemas/DemoFixture' }

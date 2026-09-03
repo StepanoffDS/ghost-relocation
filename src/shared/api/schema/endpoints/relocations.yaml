@@ -1,0 +1,43 @@
+relocations:
+  get:
+    operationId: getRelocations
+    responses:
+      '200':
+        description: Current relocation decisions.
+        content:
+          application/json:
+            schema:
+              type: array
+              items: { $ref: ../shared/schemas.yaml#/components/schemas/Relocation }
+autoAssign:
+  post:
+    operationId: autoAssignRelocations
+    responses:
+      '200':
+        description: Saved automatic decisions.
+        content:
+          application/json:
+            schema:
+              type: array
+              items: { $ref: ../shared/schemas.yaml#/components/schemas/Relocation }
+relocationByGhost:
+  put:
+    operationId: updateRelocation
+    parameters:
+      - name: ghostId
+        in: path
+        required: true
+        schema: { type: string, format: uuid }
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema: { $ref: ../shared/schemas.yaml#/components/schemas/ManualRelocationRequest }
+    responses:
+      '200':
+        description: Saved manual decision.
+        content:
+          application/json:
+            schema: { $ref: ../shared/schemas.yaml#/components/schemas/Relocation }
+      '404': { $ref: ../shared/responses.yaml#/components/responses/NotFound }
+      '409': { $ref: ../shared/responses.yaml#/components/responses/Conflict }

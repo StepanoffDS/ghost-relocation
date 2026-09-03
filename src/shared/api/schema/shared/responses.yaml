@@ -1,0 +1,12 @@
+components:
+  responses:
+    NotFound:
+      description: Entity was not found.
+      content:
+        application/json:
+          schema: { $ref: ./schemas.yaml#/components/schemas/ErrorResponse }
+    Conflict:
+      description: Relocation conflicts with conditions.
+      content:
+        application/json:
+          schema: { $ref: ./schemas.yaml#/components/schemas/ErrorResponse }

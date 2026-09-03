@@ -1,0 +1,41 @@
+import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from 'vitest'
+import { setupServer } from 'msw/node'
+
+import { handlers } from './index'
+import { reset } from './store'
+
+const server = setupServer(...handlers)
+const api = (path: string, init?: RequestInit) => fetch(`http://localhost/api${path}`, init)
+
+describe('mock relocation API', () => {
+  beforeAll(() => {
+    Object.defineProperty(globalThis, 'location', { configurable: true, value: new URL('http://localhost') })
+    server.listen({ onUnhandledRequest: 'error' })
+  })
+  beforeEach(() => reset('default'))
+  afterEach(() => server.resetHandlers())
+  afterAll(() => server.close())
+
+  it('rejects a conflicting manual placement until it is forced', async () => {
+    await api('/demo/reset', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ fixture: 'manual-conflict' }) })
+    const ghosts = await (await api('/ghosts')).json() as { id: string }[]
+    const places = await (await api('/places')).json() as { id: string; name: string }[]
+    const placeId = places.find(({ name }) => name === 'Зеркальный маяк')!.id
+
+    const rejected = await api(`/relocations/${ghosts[0].id}`, { method: 'PUT', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ placeId, force: false }) })
+    expect(rejected.status).toBe(409)
+    expect((await rejected.json()).error.code).toBe('RELOCATION_CONFLICT')
+
+    const forced = await api(`/relocations/${ghosts[0].id}`, { method: 'PUT', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ placeId, force: true }) })
+    expect(forced.status).toBe(200)
+    expect((await forced.json()).mode).toBe('manual')
+  })
+
+  it('reset discards assignments from the prior fixture', async () => {
+    await api('/relocations/auto-assign', { method: 'POST' })
+    await api('/demo/reset', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ fixture: 'empty' }) })
+    const relocations = await (await api('/relocations')).json()
+
+    expect(relocations).toEqual([])
+  })
+})

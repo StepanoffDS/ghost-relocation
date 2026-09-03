@@ -1,0 +1,11 @@
+ghosts:
+  get:
+    operationId: getGhosts
+    responses:
+      '200':
+        description: Current ghost applications.
+        content:
+          application/json:
+            schema:
+              type: array
+              items: { $ref: ../shared/schemas.yaml#/components/schemas/Ghost }

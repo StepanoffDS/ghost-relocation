@@ -1,0 +1,11 @@
+places:
+  get:
+    operationId: getPlaces
+    responses:
+      '200':
+        description: Places with computed occupancy.
+        content:
+          application/json:
+            schema:
+              type: array
+              items: { $ref: ../shared/schemas.yaml#/components/schemas/PlaceWithOccupancy }

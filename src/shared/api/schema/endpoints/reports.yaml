@@ -1,0 +1,9 @@
+relocationReport:
+  get:
+    operationId: getRelocationReport
+    responses:
+      '200':
+        description: Aggregate relocation report.
+        content:
+          application/json:
+            schema: { $ref: ../shared/schemas.yaml#/components/schemas/RelocationReport }
