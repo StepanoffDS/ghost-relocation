@@ -12,7 +12,7 @@
 - TanStack Query + `openapi-fetch`;
 - Vitest + React Testing Library.
 
-Vite настраивается с alias `@ → ./src` и Tailwind Vite plugin. `components.json` shadcn/ui использует этот alias, а сгенерированные UI-компоненты располагаются в `src/shared/ui/kit`. Базовый импорт в `app/styles.css` — `@import "tailwindcss";`.
+Vite настраивается с alias `@ → ./src` и Tailwind Vite plugin. `components.json` shadcn/ui использует этот alias, а сгенерированные UI-компоненты располагаются в `src/shared/ui/kit`. Базовый импорт в `app/index.css` — `@import "tailwindcss";`.
 
 `useReducer` и Context допустимы только для локального UI-состояния, которое меняется из многих вложенных компонентов: активный demo-набор, открытый диалог и подтверждение ручного конфликта. Серверные данные и мутации хранятся в TanStack Query. Не добавлять Redux, Zustand, React Hook Form или отдельную state-machine.
 
@@ -24,10 +24,9 @@ Vite настраивается с alias `@ → ./src` и Tailwind Vite plugin. 
 src/
   app/
     main.tsx
-    app.tsx
     providers.tsx
     router.tsx
-    styles.css
+    index.css
   pages/
     relocation/
     places/
@@ -150,7 +149,7 @@ features/demo-reset/api/use-demo-reset.ts
 
 Использовать shadcn components через локальные файлы `shared/ui/kit`, а не импортировать из внешнего CDN. Добавить только `button`, `card`, `badge`, `tabs`, `select`, `dialog`, `alert`, `skeleton`, `tooltip` и toast-компонент, если он реально используется.
 
-Tailwind отвечает за layout, responsive стили и варианты. Токены цветов и радиусов задать в `app/styles.css`; не создавать отдельную дизайн-систему. Визуальный характер: спокойный тёмный графит, один выразительный акцент, крупная типографика, короткие тексты, заметные статусы. Не копировать бренд MOX.
+Tailwind отвечает за layout, responsive стили и варианты. Токены цветов и радиусов задать в `app/index.css`; не создавать отдельную дизайн-систему. Визуальный характер: спокойный тёмный графит, один выразительный акцент, крупная типографика, короткие тексты, заметные статусы. Не копировать бренд MOX.
 
 Обязательно:
 

@@ -1,6 +1,6 @@
-import { getState } from '../store'
 import { getOccupancy } from '../domain/relocation-rules'
 import { http } from '../http'
+import { getState } from '../store'
 
 export const placeHandlers = [
   http.get('/places', ({ response }) => {
