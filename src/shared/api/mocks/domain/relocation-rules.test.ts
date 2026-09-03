@@ -48,4 +48,22 @@ describe('relocation rules', () => {
       ]),
     );
   });
+
+  it('returns a concise explanation for the selected place', () => {
+    const state = createFixture('default');
+    const [relocation] = autoAssign(
+      state.ghosts,
+      state.places,
+      state.relocations,
+      '2026-09-03',
+    );
+
+    expect(relocation).toMatchObject({ mode: 'auto', score: 100 });
+    expect(relocation.issues).toContainEqual({
+      code: 'SCORE_EXPLANATION',
+      message:
+        'Совместимость 100/100: температура, свет, шум, влажность и вместимость',
+      severity: 'warning',
+    });
+  });
 });

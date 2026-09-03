@@ -8,7 +8,7 @@ relocations:
           application/json:
             schema:
               type: array
-              items: { $ref: @/shared/schemas.yaml#/components/schemas/Relocation }
+              items: { $ref: '../shared/schemas.yaml#/components/schemas/Relocation' }
 autoAssign:
   post:
     operationId: autoAssignRelocations
@@ -19,7 +19,7 @@ autoAssign:
           application/json:
             schema:
               type: array
-              items: { $ref: @/shared/schemas.yaml#/components/schemas/Relocation }
+              items: { $ref: '../shared/schemas.yaml#/components/schemas/Relocation' }
 relocationByGhost:
   put:
     operationId: updateRelocation
@@ -32,12 +32,12 @@ relocationByGhost:
       required: true
       content:
         application/json:
-          schema: { $ref: @/shared/schemas.yaml#/components/schemas/ManualRelocationRequest }
+          schema: { $ref: '../shared/schemas.yaml#/components/schemas/ManualRelocationRequest' }
     responses:
       '200':
         description: Saved manual decision.
         content:
           application/json:
-            schema: { $ref: @/shared/schemas.yaml#/components/schemas/Relocation }
-      '404': { $ref: @/shared/responses.yaml#/components/responses/NotFound }
-      '409': { $ref: @/shared/responses.yaml#/components/responses/Conflict }
+            schema: { $ref: '../shared/schemas.yaml#/components/schemas/Relocation' }
+      '404': { $ref: '../shared/responses.yaml#/components/responses/NotFound' }
+      '409': { $ref: '../shared/responses.yaml#/components/responses/Conflict' }

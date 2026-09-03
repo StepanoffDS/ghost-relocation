@@ -1,27 +1,52 @@
-import { useGhosts } from '@/entities/ghost';
+import { GhostApplicationCard, useGhosts } from '@/entities/ghost';
+import { usePlaces } from '@/entities/place';
+import { RelocationDecision, useRelocations } from '@/entities/relocation';
 
-import { getRelocationBoardState } from '../model/relocation-board-state';
-import {
-  EmptyBoard,
-  ErrorBoard,
-  FallbackBoard,
-  PendingBoard,
-  ReadyBoard,
-} from './board-states';
+import { EmptyBoard, ErrorBoard, PendingBoard } from './board-states';
 
 export function RelocationBoard() {
   const ghosts = useGhosts();
+  const places = usePlaces();
+  const relocations = useRelocations();
 
-  switch (getRelocationBoardState(ghosts)) {
-    case 'pending':
-      return <PendingBoard />;
-    case 'error':
-      return <ErrorBoard ghosts={ghosts} />;
-    case 'empty':
-      return <EmptyBoard />;
-    case 'ready':
-      return <ReadyBoard ghosts={ghosts} />;
-    default:
-      return <FallbackBoard />;
-  }
+  if (ghosts.isPending || places.isPending || relocations.isPending)
+    return <PendingBoard />;
+
+  if (ghosts.isError || places.isError || relocations.isError)
+    return <ErrorBoard onRetry={() => void ghosts.refetch()} />;
+
+  if (!ghosts.data?.length) return <EmptyBoard />;
+
+  const placeNames = new Map(places.data?.map(({ id, name }) => [id, name]));
+  const decisions = new Map(
+    relocations.data?.map((relocation) => [relocation.ghostId, relocation]),
+  );
+
+  return (
+    <ul
+      className='grid gap-4 md:grid-cols-2 xl:grid-cols-3'
+      aria-label='Список заявок от привидений'
+    >
+      {ghosts.data.map((ghost) => {
+        const relocation = decisions.get(ghost.id);
+        return (
+          <li key={ghost.id}>
+            <GhostApplicationCard ghost={ghost}>
+              {relocation && (
+                <RelocationDecision
+                  relocation={relocation}
+                  className='mt-auto'
+                  placeName={
+                    relocation.placeId
+                      ? placeNames.get(relocation.placeId)
+                      : undefined
+                  }
+                />
+              )}
+            </GhostApplicationCard>
+          </li>
+        );
+      })}
+    </ul>
+  );
 }

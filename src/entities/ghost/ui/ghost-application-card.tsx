@@ -1,4 +1,5 @@
 import { CalendarDays, Thermometer, Waves } from 'lucide-react';
+import type { ReactNode } from 'react';
 
 import type { ApiSchemas } from '@/shared/api/schema';
 import { Badge } from '@/shared/ui/kit/badge';
@@ -9,9 +10,15 @@ import {
   getGhostRequirements,
 } from '../model/ghost-application-details';
 
-type GhostApplicationCardProps = { ghost: ApiSchemas['Ghost'] };
+type GhostApplicationCardProps = {
+  ghost: ApiSchemas['Ghost'];
+  children?: ReactNode;
+};
 
-export function GhostApplicationCard({ ghost }: GhostApplicationCardProps) {
+export function GhostApplicationCard({
+  ghost,
+  children,
+}: GhostApplicationCardProps) {
   const requirements = getGhostRequirements(ghost);
 
   return (
@@ -27,7 +34,7 @@ export function GhostApplicationCard({ ghost }: GhostApplicationCardProps) {
           Тревожность {ghost.anxiety}/5
         </Badge>
       </CardHeader>
-      <CardContent className='space-y-5'>
+      <CardContent className='space-y-5 flex flex-col h-full'>
         <dl className='space-y-3 text-sm'>
           <div className='flex items-center justify-between gap-4'>
             <dt className='flex items-center gap-2 text-muted-foreground'>
@@ -70,6 +77,7 @@ export function GhostApplicationCard({ ghost }: GhostApplicationCardProps) {
             )}
           </ul>
         </div>
+        {children}
       </CardContent>
     </Card>
   );

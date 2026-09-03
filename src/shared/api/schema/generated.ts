@@ -4,390 +4,389 @@
  */
 
 export interface paths {
-  '/ghosts': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/ghosts": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getGhosts"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get: operations['getGhosts'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/places': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/places": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getPlaces"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get: operations['getPlaces'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/relocations': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/relocations": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getRelocations"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get: operations['getRelocations'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/relocations/auto-assign': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/relocations/auto-assign": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["autoAssignRelocations"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    post: operations['autoAssignRelocations'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/relocations/{ghostId}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/relocations/{ghostId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["updateRelocation"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put: operations['updateRelocation'];
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/reports/relocation': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/reports/relocation": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getRelocationReport"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get: operations['getRelocationReport'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/demo/reset': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/demo/reset": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["resetDemo"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    post: operations['resetDemo'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
 }
 export type webhooks = Record<string, never>;
 export interface components {
-  schemas: {
-    GhostRequirements: {
-      needsAttic: boolean;
-      avoidsMirrors: boolean;
-      noHumans: boolean;
-      lovesHumidity: boolean;
-    };
-    Ghost: {
-      /** Format: uuid */
-      id: string;
-      name: string;
-      anxiety: number;
-      preferredTemperature: number;
-      /** Format: date */
-      deadline: string;
-      requirements: components['schemas']['GhostRequirements'];
-      note?: string | null;
-    };
-    Place: {
-      /** Format: uuid */
-      id: string;
-      name: string;
-      /** @enum {string} */
-      type: 'castle' | 'lighthouse' | 'library' | 'theater' | 'basement';
-      capacity: number;
-      temperature: number;
-      /** @enum {string} */
-      lighting: 'low' | 'medium' | 'high';
-      /** @enum {string} */
-      noise: 'low' | 'medium' | 'high';
-      /** @enum {string} */
-      humidity: 'low' | 'medium' | 'high';
-      hasHumans: boolean;
-      hasAttic: boolean;
-      hasMirrors: boolean;
-      restrictions: string[];
-    };
-    PlaceWithOccupancy: components['schemas']['Place'] & {
-      occupied: number;
-      isOverloaded: boolean;
-    };
-    RelocationIssue: {
-      code: string;
-      message: string;
-      /** @enum {string} */
-      severity: 'blocker' | 'warning';
-    };
-    Relocation: {
-      /** Format: uuid */
-      ghostId: string;
-      /** Format: uuid */
-      placeId: string | null;
-      /** @enum {string} */
-      mode: 'auto' | 'manual' | 'unassigned';
-      score: number | null;
-      issues: components['schemas']['RelocationIssue'][];
-    };
-    ManualRelocationRequest: {
-      /** Format: uuid */
-      placeId: string | null;
-      force: boolean;
-    };
-    ErrorResponse: {
-      error: {
-        code: string;
-        message: string;
-        details?: {
-          [key: string]: unknown;
+    schemas: {
+        GhostRequirements: {
+            needsAttic: boolean;
+            avoidsMirrors: boolean;
+            noHumans: boolean;
+            lovesHumidity: boolean;
         };
-      };
+        Ghost: {
+            /** Format: uuid */
+            id: string;
+            name: string;
+            anxiety: number;
+            preferredTemperature: number;
+            /** Format: date */
+            deadline: string;
+            requirements: components["schemas"]["GhostRequirements"];
+            note?: string | null;
+        };
+        Place: {
+            /** Format: uuid */
+            id: string;
+            name: string;
+            /** @enum {string} */
+            type: "castle" | "lighthouse" | "library" | "theater" | "basement";
+            capacity: number;
+            temperature: number;
+            /** @enum {string} */
+            lighting: "low" | "medium" | "high";
+            /** @enum {string} */
+            noise: "low" | "medium" | "high";
+            /** @enum {string} */
+            humidity: "low" | "medium" | "high";
+            hasHumans: boolean;
+            hasAttic: boolean;
+            hasMirrors: boolean;
+            restrictions: string[];
+        };
+        PlaceWithOccupancy: components["schemas"]["Place"] & {
+            occupied: number;
+            isOverloaded: boolean;
+        };
+        RelocationIssue: {
+            code: string;
+            message: string;
+            /** @enum {string} */
+            severity: "blocker" | "warning";
+        };
+        Relocation: {
+            /** Format: uuid */
+            ghostId: string;
+            /** Format: uuid */
+            placeId: string | null;
+            /** @enum {string} */
+            mode: "auto" | "manual" | "unassigned";
+            score: number | null;
+            issues: components["schemas"]["RelocationIssue"][];
+        };
+        ManualRelocationRequest: {
+            /** Format: uuid */
+            placeId: string | null;
+            force: boolean;
+        };
+        ErrorResponse: {
+            error: {
+                code: string;
+                message: string;
+                details?: {
+                    [key: string]: unknown;
+                };
+            };
+        };
+        RelocationReport: {
+            assignedCount: number;
+            unassignedCount: number;
+            problematicGhosts: {
+                /** Format: uuid */
+                ghostId: string;
+                issues: components["schemas"]["RelocationIssue"][];
+            }[];
+            overloadedPlaces: components["schemas"]["PlaceWithOccupancy"][];
+            manualWarnings: components["schemas"]["Relocation"][];
+        };
+        /** @enum {string} */
+        DemoFixture: "default" | "empty" | "impossible" | "full" | "manual-conflict";
+        DemoResetRequest: {
+            fixture: components["schemas"]["DemoFixture"];
+        };
+        DemoResetResponse: {
+            fixture: components["schemas"]["DemoFixture"];
+        };
     };
-    RelocationReport: {
-      assignedCount: number;
-      unassignedCount: number;
-      problematicGhosts: {
-        /** Format: uuid */
-        ghostId: string;
-        issues: components['schemas']['RelocationIssue'][];
-      }[];
-      overloadedPlaces: components['schemas']['PlaceWithOccupancy'][];
-      manualWarnings: components['schemas']['Relocation'][];
+    responses: {
+        /** @description Entity was not found. */
+        NotFound: {
+            headers: {
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": components["schemas"]["ErrorResponse"];
+            };
+        };
+        /** @description Relocation conflicts with conditions. */
+        Conflict: {
+            headers: {
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": components["schemas"]["ErrorResponse"];
+            };
+        };
     };
-    /** @enum {string} */
-    DemoFixture:
-      'default' | 'empty' | 'impossible' | 'full' | 'manual-conflict';
-    DemoResetRequest: {
-      fixture: components['schemas']['DemoFixture'];
-    };
-    DemoResetResponse: {
-      fixture: components['schemas']['DemoFixture'];
-    };
-  };
-  responses: {
-    /** @description Entity was not found. */
-    NotFound: {
-      headers: {
-        [name: string]: unknown;
-      };
-      content: {
-        'application/json': components['schemas']['ErrorResponse'];
-      };
-    };
-    /** @description Relocation conflicts with conditions. */
-    Conflict: {
-      headers: {
-        [name: string]: unknown;
-      };
-      content: {
-        'application/json': components['schemas']['ErrorResponse'];
-      };
-    };
-  };
-  parameters: never;
-  requestBodies: never;
-  headers: never;
-  pathItems: never;
+    parameters: never;
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
 }
 export type $defs = Record<string, never>;
 export interface operations {
-  getGhosts: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Current ghost applications. */
-      200: {
-        headers: {
-          [name: string]: unknown;
+    getGhosts: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
         };
-        content: {
-          'application/json': components['schemas']['Ghost'][];
+        requestBody?: never;
+        responses: {
+            /** @description Current ghost applications. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Ghost"][];
+                };
+            };
         };
-      };
     };
-  };
-  getPlaces: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Places with computed occupancy. */
-      200: {
-        headers: {
-          [name: string]: unknown;
+    getPlaces: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
         };
-        content: {
-          'application/json': components['schemas']['PlaceWithOccupancy'][];
+        requestBody?: never;
+        responses: {
+            /** @description Places with computed occupancy. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PlaceWithOccupancy"][];
+                };
+            };
         };
-      };
     };
-  };
-  getRelocations: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Current relocation decisions. */
-      200: {
-        headers: {
-          [name: string]: unknown;
+    getRelocations: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
         };
-        content: {
-          'application/json': components['schemas']['Relocation'][];
+        requestBody?: never;
+        responses: {
+            /** @description Current relocation decisions. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Relocation"][];
+                };
+            };
         };
-      };
     };
-  };
-  autoAssignRelocations: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Saved automatic decisions. */
-      200: {
-        headers: {
-          [name: string]: unknown;
+    autoAssignRelocations: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
         };
-        content: {
-          'application/json': components['schemas']['Relocation'][];
+        requestBody?: never;
+        responses: {
+            /** @description Saved automatic decisions. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Relocation"][];
+                };
+            };
         };
-      };
     };
-  };
-  updateRelocation: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        ghostId: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['ManualRelocationRequest'];
-      };
-    };
-    responses: {
-      /** @description Saved manual decision. */
-      200: {
-        headers: {
-          [name: string]: unknown;
+    updateRelocation: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                ghostId: string;
+            };
+            cookie?: never;
         };
-        content: {
-          'application/json': components['schemas']['Relocation'];
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ManualRelocationRequest"];
+            };
         };
-      };
-      404: components['responses']['NotFound'];
-      409: components['responses']['Conflict'];
-    };
-  };
-  getRelocationReport: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Aggregate relocation report. */
-      200: {
-        headers: {
-          [name: string]: unknown;
+        responses: {
+            /** @description Saved manual decision. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Relocation"];
+                };
+            };
+            404: components["responses"]["NotFound"];
+            409: components["responses"]["Conflict"];
         };
-        content: {
-          'application/json': components['schemas']['RelocationReport'];
+    };
+    getRelocationReport: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
         };
-      };
-    };
-  };
-  resetDemo: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['DemoResetRequest'];
-      };
-    };
-    responses: {
-      /** @description Active fixture name. */
-      200: {
-        headers: {
-          [name: string]: unknown;
+        requestBody?: never;
+        responses: {
+            /** @description Aggregate relocation report. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RelocationReport"];
+                };
+            };
         };
-        content: {
-          'application/json': components['schemas']['DemoResetResponse'];
-        };
-      };
     };
-  };
+    resetDemo: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["DemoResetRequest"];
+            };
+        };
+        responses: {
+            /** @description Active fixture name. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DemoResetResponse"];
+                };
+            };
+        };
+    };
 }

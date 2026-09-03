@@ -5,10 +5,10 @@ reset:
       required: true
       content:
         application/json:
-          schema: { $ref: @/shared/schemas.yaml#/components/schemas/DemoResetRequest }
+          schema: { $ref: '../shared/schemas.yaml#/components/schemas/DemoResetRequest' }
     responses:
       '200':
         description: Active fixture name.
         content:
           application/json:
-            schema: { $ref: @/shared/schemas.yaml#/components/schemas/DemoResetResponse }
+            schema: { $ref: '../shared/schemas.yaml#/components/schemas/DemoResetResponse' }

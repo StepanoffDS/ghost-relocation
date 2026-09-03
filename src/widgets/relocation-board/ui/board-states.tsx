@@ -1,27 +1,9 @@
 import { AlertTriangle, Ghost, RotateCcw } from 'lucide-react';
 
-import { GhostApplicationCard } from '@/entities/ghost';
 import { Alert, AlertDescription, AlertTitle } from '@/shared/ui/kit/alert';
 import { Button } from '@/shared/ui/kit/button';
 import { Card, CardContent, CardHeader } from '@/shared/ui/kit/card';
 import { Skeleton } from '@/shared/ui/kit/skeleton';
-
-import type { BoardViewProps } from '../types';
-
-export function ReadyBoard({ ghosts }: BoardViewProps) {
-  return (
-    <ul
-      className='grid gap-4 md:grid-cols-2 xl:grid-cols-3'
-      aria-label='Список заявок от привидений'
-    >
-      {ghosts.data?.map((ghost) => (
-        <li key={ghost.id}>
-          <GhostApplicationCard ghost={ghost} />
-        </li>
-      ))}
-    </ul>
-  );
-}
 
 export function PendingBoard() {
   return (
@@ -46,7 +28,7 @@ export function PendingBoard() {
   );
 }
 
-export function ErrorBoard({ ghosts }: BoardViewProps) {
+export function ErrorBoard({ onRetry }: { onRetry: () => void }) {
   return (
     <Alert variant='destructive' className='max-w-xl p-4'>
       <AlertTriangle aria-hidden='true' />
@@ -57,22 +39,10 @@ export function ErrorBoard({ ghosts }: BoardViewProps) {
       <Button
         className='mt-3'
         variant='outline'
-        onClick={() => void ghosts.refetch()}
+        onClick={onRetry}
       >
         <RotateCcw data-icon='inline-start' /> Повторить
       </Button>
-    </Alert>
-  );
-}
-
-export function FallbackBoard() {
-  return (
-    <Alert variant='destructive' className='max-w-xl p-4'>
-      <AlertTriangle aria-hidden='true' />
-      <AlertTitle>Неизвестная ошибка</AlertTitle>
-      <AlertDescription>
-        Обновите страницу. Если ошибка повторится, обратитесь к разработчику.
-      </AlertDescription>
     </Alert>
   );
 }

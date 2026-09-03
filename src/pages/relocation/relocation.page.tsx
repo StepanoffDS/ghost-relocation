@@ -1,5 +1,6 @@
 import { Sparkles } from 'lucide-react';
 
+import { AutoAssignButton } from '@/features/auto-assign';
 import { RelocationBoard } from '@/widgets/relocation-board';
 
 export function RelocationPage() {
@@ -14,9 +15,11 @@ export function RelocationPage() {
           Заявки от привидений
         </h2>
         <p className='mt-3 text-base leading-7 text-muted-foreground'>
-          Проверьте условия переселения, прежде чем подбирать новое место.
+          Подбор исключает конфликтные места и оценивает температуру, свет, шум,
+          влажность и вместимость.
         </p>
       </header>
+      <AutoAssignButton />
       <RelocationBoard />
     </section>
   );
