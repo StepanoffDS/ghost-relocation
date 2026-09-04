@@ -14,7 +14,17 @@ export function RelocationBoard() {
     return <PendingBoard />;
 
   if (ghosts.isError || places.isError || relocations.isError)
-    return <ErrorBoard onRetry={() => void ghosts.refetch()} />;
+    return (
+      <ErrorBoard
+        onRetry={() =>
+          void Promise.all([
+            ghosts.refetch(),
+            places.refetch(),
+            relocations.refetch(),
+          ])
+        }
+      />
+    );
 
   if (!ghosts.data?.length) return <EmptyBoard />;
 

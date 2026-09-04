@@ -2,7 +2,10 @@ import { useMutation } from '@tanstack/react-query';
 
 import { ghostsQueryKey } from '@/entities/ghost';
 import { placesQueryKey } from '@/entities/place';
-import { relocationsQueryKey } from '@/entities/relocation';
+import {
+  relocationReportQueryKey,
+  relocationsQueryKey,
+} from '@/entities/relocation';
 import { api } from '@/shared/api/instance';
 import { queryClient } from '@/shared/api/query-client';
 import type { ApiSchemas } from '@/shared/api/schema';
@@ -45,6 +48,6 @@ export const useManualRelocation = () =>
         queryClient.invalidateQueries({ queryKey: ghostsQueryKey }),
         queryClient.invalidateQueries({ queryKey: placesQueryKey }),
         queryClient.invalidateQueries({ queryKey: relocationsQueryKey }),
-        queryClient.invalidateQueries({ queryKey: ['report'] }),
+        queryClient.invalidateQueries({ queryKey: relocationReportQueryKey }),
       ]),
   });

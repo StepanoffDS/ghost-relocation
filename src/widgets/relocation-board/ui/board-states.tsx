@@ -45,7 +45,7 @@ export function ErrorBoard({ onRetry }: { onRetry: () => void }) {
 
 export function EmptyBoard() {
   return (
-    <Card className='max-w-xl border-dashed border-border/80 bg-card/50 py-8 text-center'>
+    <Card className='border-dashed border-border/80 bg-card/50 py-8 text-center'>
       <CardContent className='flex flex-col items-center gap-3'>
         <Ghost className='size-8 text-primary' aria-hidden='true' />
         <h3 className='text-base font-semibold'>Заявок пока нет</h3>

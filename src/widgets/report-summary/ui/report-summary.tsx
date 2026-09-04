@@ -4,6 +4,7 @@ import type { ReactNode } from 'react';
 import { useRelocationReport } from '@/entities/relocation';
 import { Card, CardContent, CardHeader, CardTitle } from '@/shared/ui/kit/card';
 
+import { ManualWarnings } from './manual-warnings';
 import { OverloadedPlaces } from './overloaded-places';
 import { ProblematicGhosts } from './problematic-ghosts';
 import { ErrorReport, PendingReport } from './report-states';
@@ -50,6 +51,10 @@ export function ReportSummary() {
 
       <ReportSection title='Заполненные и перегруженные места'>
         <OverloadedPlaces places={data.overloadedPlaces} />
+      </ReportSection>
+
+      <ReportSection title='Ручные решения с предупреждениями'>
+        <ManualWarnings relocations={data.manualWarnings} />
       </ReportSection>
     </section>
   );

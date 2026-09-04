@@ -11,6 +11,13 @@ export type AiWorklog = {
   generatedAt: string;
   tools: { name: string; purpose: string; tokenCount: number | null }[];
   totalDurationMinutes: number | null;
+  tokenUsage: {
+    inputTokens: number;
+    cachedInputTokens: number;
+    outputTokens: number;
+    reasoningOutputTokens: number;
+    totalTokens: number;
+  };
   tokenSummary: string;
   stages: WorklogStage[];
   decisions: string[];
@@ -38,9 +45,40 @@ export const worklog: AiWorklog = {
     },
   ],
   totalDurationMinutes: null,
+  tokenUsage: {
+    inputTokens: 46725758,
+    cachedInputTokens: 44435712,
+    outputTokens: 246521,
+    reasoningOutputTokens: 91970,
+    totalTokens: 46991438,
+  },
   tokenSummary:
-    'Инструмент не предоставляет статистику токенов; токены не считались',
+    'Статистика токенов предоставлена для текущей AI-сессии и отображается с разделителями тысяч.',
   stages: [
+    {
+      name: 'ТЗ и декомпозиция',
+      durationMinutes: null,
+      developerWork: [
+        'Определил границы MVP: React SPA, mock API в браузере, без сервера, БД и авторизации.',
+      ],
+      aiWork: ['Помог разложить требования на экраны, API и проверяемые сценарии.'],
+      keyPrompts: ['Проанализировать task.md и определить минимальный объём реализации.'],
+      outcome:
+        'Границы и критерии готовности зафиксированы в task.md, docs/backend.md и docs/frontend.md; время этапа отдельно не фиксировалось.',
+    },
+    {
+      name: 'Архитектура',
+      durationMinutes: null,
+      developerWork: [
+        'Выбрал FSD-слои, OpenAPI как источник API-типов и MSW для stateful mock API.',
+      ],
+      aiWork: [
+        'Подготовил структуру запросов, handlers и чистую domain-функцию правил подбора.',
+      ],
+      keyPrompts: ['Реализовать mock backend по контракту из docs/backend.md.'],
+      outcome:
+        'Предметный UI использует только HTTP-клиент, а правила распределения не дублируются в React; время этапа отдельно не фиксировалось.',
+    },
     {
       name: 'Подготовка ручного назначения',
       durationMinutes: null,
@@ -245,9 +283,56 @@ export const worklog: AiWorklog = {
       outcome:
         'Vitest выполняет 10 тестов; yarn lint, yarn test и yarn build проходят. Время этапа отдельно не фиксировалось.',
     },
+    {
+      name: 'Выделение навигации',
+      durationMinutes: null,
+      developerWork: [
+        'Выбрал отдельный компонент навигации внутри виджета без расширения его публичного API.',
+      ],
+      aiWork: [
+        'Вынес ссылочную навигацию из AppShell в AppNavigation и выполнил проверки.',
+      ],
+      keyPrompts: ['Вынеси в отдельный компонент.'],
+      outcome:
+        'AppShell отвечает за layout, AppNavigation — за навигационные ссылки; yarn lint, yarn test и yarn build проходят. Время этапа отдельно не фиксировалось.',
+    },
+    {
+      name: 'Закрытие обязательных сценариев',
+      durationMinutes: null,
+      developerWork: [
+        'Выбрал сделать все edge cases доступными из обычного интерфейса, а не только через mock API.',
+        'Проверил в браузере пустой набор, ручной конфликт и итоговый отчёт.',
+      ],
+      aiWork: [
+        'Добавил selector demo-наборов с инвалидацией связанных запросов.',
+        'Исправил повтор запросов доски и добавил отображение ручных решений с предупреждениями в отчёте.',
+      ],
+      keyPrompts: ['Реализуй доработки из аудита проекта.'],
+      outcome:
+        'Обязательные сценарии доступны из шапки приложения; Vitest выполняет 12 тестов, lint, api:check и production-сборка проходят.',
+    },
+    {
+      name: 'AI Worklog',
+      durationMinutes: null,
+      developerWork: [
+        'Запросил отдельный экран с фактическими данными из конфигурации и раскрывающимися этапами на shadcn Accordion.',
+      ],
+      aiWork: [
+        'Собрал адаптивный экран с инструментами, timeline этапов, shadcn Accordion, решениями, исправлениями и будущими улучшениями.',
+      ],
+      keyPrompts: [
+        'Теперь сделай AI Worklog.',
+        'В AI Worklog поставь accordion из Shadcn.',
+      ],
+      outcome:
+        'Worklog открывается по /ai-worklog без API и README; этапы раскрываются локальным shadcn Accordion, а время и токены оставлены незаполненными, потому что они не фиксировались.',
+    },
   ],
   decisions: [
     'Не добавлять сервер, БД и авторизацию: они вне требований mock API.',
+    'Хранить правила подбора в чистой mock domain-функции, а не дублировать их в React-компонентах.',
+    'Сохранять подтверждённое конфликтное назначение только после отдельного destructive-действия.',
+    'Показывать обязательные edge cases через selector demo-наборов в интерфейсе.',
   ],
   aiCorrections: [
     {
@@ -258,6 +343,9 @@ export const worklog: AiWorklog = {
     },
   ],
   futureImprovements: [
-    'Добавить экран AI Worklog после реализации интерфейса.',
+    'Подключить настоящий backend, постоянное хранилище и журнал изменений назначений.',
+    'Добавить фильтры, поиск и сортировку заявок для большого количества обращений.',
+    'Сделать доступными отмену назначения и пакетное распределение с предпросмотром.',
+    'Добавить e2e-проверки пользовательских сценариев в реальном браузере.',
   ],
 };

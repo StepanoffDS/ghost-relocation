@@ -8,12 +8,15 @@ import {
 } from '@/entities/relocation';
 import { api } from '@/shared/api/instance';
 import { queryClient } from '@/shared/api/query-client';
+import type { ApiSchemas } from '@/shared/api/schema';
 
-export const useAutoAssign = () =>
+export const useDemoReset = () =>
   useMutation({
-    mutationFn: async () => {
-      const { data, error } = await api.POST('/relocations/auto-assign');
-      if (error || !data) throw new Error('Не удалось распределить заявки');
+    mutationFn: async (fixture: ApiSchemas['DemoFixture']) => {
+      const { data, error } = await api.POST('/demo/reset', {
+        body: { fixture },
+      });
+      if (error || !data) throw new Error('Не удалось сменить демо-набор');
       return data;
     },
     onSuccess: () =>
