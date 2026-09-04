@@ -38,6 +38,14 @@ export const evaluatePlace = (
     blockers.push(
       issue('ATTIC_REQUIRED', 'Для заявки нужен чердак', 'blocker'),
     );
+  if (requirements.avoidsBrightLight && place.lighting === 'high')
+    blockers.push(
+      issue(
+        'BRIGHT_LIGHT_FORBIDDEN',
+        'Для заявки здесь слишком светло',
+        'blocker',
+      ),
+    );
   if (requirements.avoidsMirrors && place.hasMirrors)
     blockers.push(
       issue('MIRRORS_FORBIDDEN', 'Привидение боится зеркал', 'blocker'),

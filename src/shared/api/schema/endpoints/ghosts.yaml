@@ -8,4 +8,5 @@ ghosts:
           application/json:
             schema:
               type: array
-              items: { $ref: '../shared/schemas.yaml#/components/schemas/Ghost' }
+              items:
+                { $ref: '../shared/schemas.yaml#/components/schemas/Ghost' }

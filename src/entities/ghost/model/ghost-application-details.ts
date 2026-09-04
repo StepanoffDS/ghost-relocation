@@ -5,6 +5,7 @@ export const getGhostRequirements = (ghost: ApiSchemas['Ghost']): string[] => {
 
   return [
     requirements.needsAttic && 'Нужен чердак',
+    requirements.avoidsBrightLight && 'Боится яркого света',
     requirements.avoidsMirrors && 'Боится зеркал',
     requirements.noHumans && 'Не селить рядом с людьми',
     requirements.lovesHumidity && 'Любит сырость',

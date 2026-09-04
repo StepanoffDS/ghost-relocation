@@ -8,4 +8,7 @@ places:
           application/json:
             schema:
               type: array
-              items: { $ref: '../shared/schemas.yaml#/components/schemas/PlaceWithOccupancy' }
+              items:
+                {
+                  $ref: '../shared/schemas.yaml#/components/schemas/PlaceWithOccupancy',
+                }

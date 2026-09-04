@@ -6,4 +6,7 @@ relocationReport:
         description: Aggregate relocation report.
         content:
           application/json:
-            schema: { $ref: '../shared/schemas.yaml#/components/schemas/RelocationReport' }
+            schema:
+              {
+                $ref: '../shared/schemas.yaml#/components/schemas/RelocationReport',
+              }

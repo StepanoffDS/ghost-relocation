@@ -186,6 +186,7 @@ Relocation:
 - дедлайн уже прошёл — `DEADLINE_EXPIRED`;
 - `occupied >= capacity` — `CAPACITY_FULL`;
 - нужен чердак, но `hasAttic = false` — `ATTIC_REQUIRED`;
+- заявка боится яркого света, а `lighting = high` — `BRIGHT_LIGHT_FORBIDDEN`;
 - заявка боится зеркал и `hasMirrors = true` — `MIRRORS_FORBIDDEN`;
 - нельзя рядом с людьми и `hasHumans = true` — `HUMANS_FORBIDDEN`;
 - нужна сырость и `humidity !== high` — `HUMIDITY_REQUIRED`;

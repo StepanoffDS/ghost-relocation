@@ -16,7 +16,9 @@ export function AutoAssignButton() {
         onClick={() => autoAssign.mutate()}
       >
         <Sparkles data-icon='inline-start' />
-        {autoAssign.isPending ? 'Подбираем места…' : 'Распределить автоматически'}
+        {autoAssign.isPending
+          ? 'Подбираем места…'
+          : 'Распределить автоматически'}
       </Button>
       {autoAssign.isError && (
         <Alert variant='destructive'>

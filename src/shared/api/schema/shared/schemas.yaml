@@ -2,9 +2,11 @@ components:
   schemas:
     GhostRequirements:
       type: object
-      required: [needsAttic, avoidsMirrors, noHumans, lovesHumidity]
+      required:
+        [needsAttic, avoidsBrightLight, avoidsMirrors, noHumans, lovesHumidity]
       properties:
         needsAttic: { type: boolean }
+        avoidsBrightLight: { type: boolean }
         avoidsMirrors: { type: boolean }
         noHumans: { type: boolean }
         lovesHumidity: { type: boolean }

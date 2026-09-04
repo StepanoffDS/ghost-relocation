@@ -36,11 +36,7 @@ export function ErrorBoard({ onRetry }: { onRetry: () => void }) {
       <AlertDescription>
         Проверьте подключение к mock API и повторите попытку.
       </AlertDescription>
-      <Button
-        className='mt-3'
-        variant='outline'
-        onClick={onRetry}
-      >
+      <Button className='mt-3' variant='outline' onClick={onRetry}>
         <RotateCcw data-icon='inline-start' /> Повторить
       </Button>
     </Alert>

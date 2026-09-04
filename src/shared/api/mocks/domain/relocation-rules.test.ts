@@ -42,6 +42,7 @@ describe('relocation rules', () => {
     expect(relocation.issues.map(({ code }) => code)).toEqual(
       expect.arrayContaining([
         'ATTIC_REQUIRED',
+        'BRIGHT_LIGHT_FORBIDDEN',
         'MIRRORS_FORBIDDEN',
         'HUMANS_FORBIDDEN',
         'HUMIDITY_REQUIRED',

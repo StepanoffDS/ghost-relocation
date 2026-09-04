@@ -114,6 +114,7 @@ const defaultGhosts: Ghost[] = [
     deadline: '2026-12-20',
     requirements: {
       needsAttic: true,
+      avoidsBrightLight: false,
       avoidsMirrors: true,
       noHumans: true,
       lovesHumidity: true,
@@ -128,6 +129,7 @@ const defaultGhosts: Ghost[] = [
     deadline: '2026-11-15',
     requirements: {
       needsAttic: false,
+      avoidsBrightLight: false,
       avoidsMirrors: false,
       noHumans: false,
       lovesHumidity: false,
@@ -142,6 +144,7 @@ const defaultGhosts: Ghost[] = [
     deadline: '2026-10-10',
     requirements: {
       needsAttic: false,
+      avoidsBrightLight: false,
       avoidsMirrors: true,
       noHumans: true,
       lovesHumidity: true,
@@ -156,6 +159,7 @@ const defaultGhosts: Ghost[] = [
     deadline: '2026-01-01',
     requirements: {
       needsAttic: false,
+      avoidsBrightLight: false,
       avoidsMirrors: false,
       noHumans: false,
       lovesHumidity: false,
@@ -178,6 +182,7 @@ const impossibleGhost: Ghost = {
   deadline: '2026-12-20',
   requirements: {
     needsAttic: true,
+    avoidsBrightLight: true,
     avoidsMirrors: true,
     noHumans: true,
     lovesHumidity: true,
