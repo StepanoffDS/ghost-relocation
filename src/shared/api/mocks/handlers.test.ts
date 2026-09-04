@@ -69,4 +69,20 @@ describe('mock relocation API', () => {
 
     expect(relocations).toEqual([]);
   });
+
+  it('reports named applications that could not be relocated', async () => {
+    await api('/demo/reset', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ fixture: 'impossible' }),
+    });
+    await api('/relocations/auto-assign', { method: 'POST' });
+
+    const report = await (await api('/reports/relocation')).json();
+
+    expect(report.assignedCount).toBe(0);
+    expect(report.unassignedCount).toBe(1);
+    expect(report.problematicGhosts[0].name).toBe('Моргана');
+    expect(report.problematicGhosts[0].issues).not.toHaveLength(0);
+  });
 });

@@ -102,9 +102,10 @@ components:
           type: array
           items:
             type: object
-            required: [ghostId, issues]
+            required: [ghostId, name, issues]
             properties:
               ghostId: { type: string, format: uuid }
+              name: { type: string }
               issues:
                 type: array
                 items: { $ref: '#/components/schemas/RelocationIssue' }
