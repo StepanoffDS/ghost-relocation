@@ -1,6 +1,7 @@
 import { GhostApplicationCard, useGhosts } from '@/entities/ghost';
 import { usePlaces } from '@/entities/place';
 import { RelocationDecision, useRelocations } from '@/entities/relocation';
+import { ManualRelocationDialog } from '@/features/manual-relocation';
 
 import { EmptyBoard, ErrorBoard, PendingBoard } from './board-states';
 
@@ -33,15 +34,22 @@ export function RelocationBoard() {
           <li key={ghost.id}>
             <GhostApplicationCard ghost={ghost}>
               {relocation && (
-                <RelocationDecision
-                  relocation={relocation}
-                  className='mt-auto'
-                  placeName={
-                    relocation.placeId
-                      ? placeNames.get(relocation.placeId)
-                      : undefined
-                  }
-                />
+                <>
+                  <RelocationDecision
+                    relocation={relocation}
+                    className='mt-auto'
+                    placeName={
+                      relocation.placeId
+                        ? placeNames.get(relocation.placeId)
+                        : undefined
+                    }
+                  />
+                  <ManualRelocationDialog
+                    ghost={ghost}
+                    places={places.data}
+                    relocation={relocation}
+                  />
+                </>
               )}
             </GhostApplicationCard>
           </li>

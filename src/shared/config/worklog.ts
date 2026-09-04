@@ -19,7 +19,7 @@ export type AiWorklog = {
 };
 
 export const worklog: AiWorklog = {
-  generatedAt: '2026-09-03',
+  generatedAt: '2026-09-04',
   tools: [
     {
       name: 'Codex',
@@ -31,11 +31,45 @@ export const worklog: AiWorklog = {
       purpose: 'Проверка API MSW и OpenAPI-инструментов',
       tokenCount: null,
     },
+    {
+      name: 'shadcn CLI',
+      purpose: 'Добавление локального компонента Dialog',
+      tokenCount: null,
+    },
   ],
   totalDurationMinutes: null,
   tokenSummary:
     'Инструмент не предоставляет статистику токенов; токены не считались',
   stages: [
+    {
+      name: 'Подготовка ручного назначения',
+      durationMinutes: null,
+      developerWork: [
+        'Запросил установить локальный Dialog и сохранил существующую реализацию Button.',
+      ],
+      aiWork: [
+        'Установил Dialog через shadcn CLI и проверил lint.',
+      ],
+      keyPrompts: ['Установи Dialog через npx shadcn@latest add Dialog.'],
+      outcome:
+        'Локальный Dialog доступен в shared/ui/kit; время этапа отдельно не фиксировалось.',
+    },
+    {
+      name: 'Ручное изменение решения',
+      durationMinutes: null,
+      developerWork: [
+        'Выбрал двухшаговое подтверждение, чтобы конфликт нельзя было сохранить случайным действием.',
+      ],
+      aiWork: [
+        'Добавил мутацию ручного назначения, диалог выбора места и отображение причин ответа 409.',
+        'Проверил в браузере конфликтный выбор и последующее принудительное сохранение.',
+      ],
+      keyPrompts: [
+        'Пользователь может вручную выбрать другое место. Если выбор плохой, приложение должно предупредить, что именно не так.',
+      ],
+      outcome:
+        'Оператор видит причины конфликта и может подтвердить его отдельной destructive-кнопкой; время этапа отдельно не фиксировалось.',
+    },
     {
       name: 'Mock API и алгоритм',
       durationMinutes: null,
