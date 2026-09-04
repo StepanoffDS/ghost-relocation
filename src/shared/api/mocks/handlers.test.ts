@@ -28,7 +28,7 @@ describe('mock relocation API', () => {
   afterEach(() => server.resetHandlers());
   afterAll(() => server.close());
 
-  it('rejects a conflicting manual placement until it is forced', async () => {
+  it('Отклоняет конфликт без подтверждения', async () => {
     await api('/demo/reset', {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
@@ -58,7 +58,7 @@ describe('mock relocation API', () => {
     expect((await forced.json()).mode).toBe('manual');
   });
 
-  it('reset discards assignments from the prior fixture', async () => {
+  it('Сбрасывает прошлые назначения', async () => {
     await api('/relocations/auto-assign', { method: 'POST' });
     await api('/demo/reset', {
       method: 'POST',
@@ -70,7 +70,7 @@ describe('mock relocation API', () => {
     expect(relocations).toEqual([]);
   });
 
-  it('reports named applications that could not be relocated', async () => {
+  it('Показывает проблемную заявку', async () => {
     await api('/demo/reset', {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
@@ -84,5 +84,24 @@ describe('mock relocation API', () => {
     expect(report.unassignedCount).toBe(1);
     expect(report.problematicGhosts[0].name).toBe('Моргана');
     expect(report.problematicGhosts[0].issues).not.toHaveLength(0);
+  });
+
+  it('Объясняет переполненное место', async () => {
+    await api('/demo/reset', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ fixture: 'full' }),
+    });
+    await api('/relocations/auto-assign', { method: 'POST' });
+
+    const relocations = (await (await api('/relocations')).json()) as {
+      placeId: string | null;
+      issues: { code: string }[];
+    }[];
+
+    expect(relocations.filter(({ placeId }) => placeId).length).toBe(1);
+    expect(relocations[1].issues).toEqual(
+      expect.arrayContaining([expect.objectContaining({ code: 'CAPACITY_FULL' })]),
+    );
   });
 });

@@ -231,15 +231,30 @@ export const worklog: AiWorklog = {
       outcome:
         'Основной компонент отчёта оставляет только композицию секций; yarn lint, yarn test и yarn build проходят. Время этапа отдельно не фиксировалось.',
     },
+    {
+      name: 'Расширение автотестов',
+      durationMinutes: null,
+      developerWork: [
+        'Выбрал покрыть обязательные UI-сценарии и переполнение fixture без e2e-инфраструктуры.',
+      ],
+      aiWork: [
+        'Подключил React Testing Library и jsdom, добавил компонентные проверки причин отказа, 409-подтверждения и error-state через server.use().',
+        'Добавил проверку full fixture, настроил Vitest для DOM-окружения и сократил русские названия тестов.',
+      ],
+      keyPrompts: ['Все пункты из ТЗ выполнены, но не хватает тестов. Добавь тесты.'],
+      outcome:
+        'Vitest выполняет 10 тестов; yarn lint, yarn test и yarn build проходят. Время этапа отдельно не фиксировалось.',
+    },
   ],
   decisions: [
     'Не добавлять сервер, БД и авторизацию: они вне требований mock API.',
   ],
   aiCorrections: [
     {
-      issue: 'Node-тест не сопоставлял относительные MSW routes без origin.',
+      issue:
+        'Клиент API захватывал fetch до запуска MSW-сервера, поэтому компонентные тесты не видели handlers.',
       correction:
-        'В тесте задан localhost origin; browser-конфигурация остаётся с baseUrl /api.',
+        'Клиент вызывает текущий global fetch; абсолютный base URL используется только в test-режиме.',
     },
   ],
   futureImprovements: [

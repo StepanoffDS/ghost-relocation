@@ -4,7 +4,7 @@ import { createFixture } from '../seed';
 import { autoAssign } from './relocation-rules';
 
 describe('relocation rules', () => {
-  it('assigns deterministically without exceeding capacity', () => {
+  it('Распределяет без переполнения', () => {
     const state = createFixture('default');
     const first = autoAssign(
       state.ghosts,
@@ -29,7 +29,7 @@ describe('relocation rules', () => {
     ).toBe(true);
   });
 
-  it('returns every blocker for an impossible application', () => {
+  it('Собирает причины отказа', () => {
     const state = createFixture('impossible');
     const [relocation] = autoAssign(
       state.ghosts,
@@ -50,7 +50,7 @@ describe('relocation rules', () => {
     );
   });
 
-  it('returns a concise explanation for the selected place', () => {
+  it('Объясняет выбранное место', () => {
     const state = createFixture('default');
     const [relocation] = autoAssign(
       state.ghosts,
